@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"fmt"
-	"nd/internal/models"
-	"nd/internal/repository"
+	"github.com/nodirafayzalieva52-lang/cinema/movie-service/internal/models"
+	"github.com/nodirafayzalieva52-lang/cinema/movie-service/internal/repository"
 )
 
 type Service struct {

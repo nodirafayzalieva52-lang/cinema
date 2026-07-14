@@ -6,8 +6,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/resolver"
-	userpb "github.com/nodirafayzalieva52-lang/userservice/userpb"
-	"api-gateway/config"
+	userpb "github.com/nodirafayzalieva52-lang/cinema/user-service/userpb"
+	moviepb "github.com/nodirafayzalieva52-lang/cinema/movie-service/movie"
+	bookingpb "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
 )
 
 type IServiceManager interface {
@@ -45,7 +47,7 @@ func NewServiceManager(config config.Services) (IServiceManager, error) {
 	}
 
 	connMovieService, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", &config.MovieService.Host, config.MovieeSrvice.Port),
+		fmt.Sprintf("%s:%d", &config.MovieService.Host, config.MovieService.Port),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
@@ -53,7 +55,7 @@ func NewServiceManager(config config.Services) (IServiceManager, error) {
 	}
 
 	connBookingService, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", &config.BookingService.Host, config.BookingSrvice.Port),
+		fmt.Sprintf("%s:%d", &config.BookingService.Host, config.BookingService.Port),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {

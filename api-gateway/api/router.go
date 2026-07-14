@@ -2,9 +2,9 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"api-gateway/config"
-	"api-gateway/api/handlers"
-	"api-gateway/services"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/api/handlers"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/services"
 )
 
 type Option struct {

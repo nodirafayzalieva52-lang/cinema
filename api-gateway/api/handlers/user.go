@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	userpb "github.com/nodirafayzalieva52-lang/userservice/userpb"
+	userpb "github.com/nodirafayzalieva52-lang/cinema/user-service/userpb"
 )
 
 func (h *handler) GetUser(c *gin.Context) {

@@ -1,13 +1,13 @@
 package main
 
 import (
-	bookingv1 "book/github.com/your-org/cinema-booking-proto/booking/v1"
-	"book/internal/config"
-	"book/internal/repository"
-	"book/internal/server"
-	"book/internal/service"
-	"book/pkg/db"
-	"book/pkg/logger"
+	bookingv1 "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/config"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/repository"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/server"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/service"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/db"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/logger"
 	"context"
 	"log"
 	"net"

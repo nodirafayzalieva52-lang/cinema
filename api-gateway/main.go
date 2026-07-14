@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"api-gateway/api"
-	"api-gateway/config"
-	"api-gateway/services"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/api"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/services"
 )
 
 func main() {

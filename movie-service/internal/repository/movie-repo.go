@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"nd/internal/models"
+	"github.com/nodirafayzalieva52-lang/cinema/movie-service/internal/models"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"

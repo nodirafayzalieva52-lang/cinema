@@ -1,10 +1,10 @@
 package server
 
 import (
-	bookingv1 "book/github.com/your-org/cinema-booking-proto/booking/v1"
-	"book/internal/models"
-	"book/internal/service"
-	"book/pkg/logger"
+	bookingv1 "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/models"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/service"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/logger"
 	"context"
 	"errors"
 )

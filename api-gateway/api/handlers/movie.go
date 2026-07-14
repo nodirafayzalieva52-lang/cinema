@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	
-
-	"api-gateway/models"
+	moviepb "github.com/nodirafayzalieva52-lang/cinema/movie-service/movie"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/models"
 )
 
 func (h *handler) CreateMovie(c *gin.Context) {
@@ -23,8 +23,6 @@ func (h *handler) CreateMovie(c *gin.Context) {
 		&moviepb.CreateMovieRequest{
 			Title:       body.Title,
 			Description: body.Description,
-			Duration:    body.Duration,
-			AgeLimit:    body.AgeLimit,
 		})
 
 	if err != nil {

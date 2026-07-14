@@ -1,9 +1,9 @@
 package service
 
 import (
-	"book/internal/models"
-	"book/internal/repository"
-	"book/pkg/logger"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/models"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/repository"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/logger"
 	"context"
 	"errors"
 	"fmt"

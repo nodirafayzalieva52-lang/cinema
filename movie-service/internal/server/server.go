@@ -3,10 +3,10 @@ package server
 import (
 	"context"
 	"errors"
-	movie "nd/movie"
-	"nd/internal/models"
-	"nd/internal/service"
-	"nd/pkg/logger"
+	movie "github.com/nodirafayzalieva52-lang/cinema/movie-service/movie"
+	"github.com/nodirafayzalieva52-lang/cinema/movie-service/internal/models"
+	"github.com/nodirafayzalieva52-lang/cinema/movie-service/internal/service"
+	"github.com/nodirafayzalieva52-lang/cinema/movie-service/pkg/logger"
 )
 
 type Server struct {

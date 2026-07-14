@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"book/internal/models"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/models"
 	"context"
 	"errors"
 	"fmt"
