@@ -22,7 +22,6 @@ import (
 )
 
 func main() {
-
 	cfg, err := config.New("./config/config.env")
 	if err != nil { 
 		log.Fatal("config.New", err)
