@@ -15,7 +15,7 @@ func GenerateTokens(userID int, role int32) (string, string, error) {
 		"role":	   role,
 		"exp":     time.Now().Add(time.Minute * 15).Unix(),
 	})
-	accesssString, err := accessToken.SignedString(secretKey)
+	accessString, err := accessToken.SignedString(secretKey)
 	if err != nil {
 		return "", "", err
 	}
@@ -30,5 +30,5 @@ func GenerateTokens(userID int, role int32) (string, string, error) {
 		return "", "",  err
 	}
 
-	return accesssString, refreshString, nil
+	return accessString, refreshString, nil
 }
