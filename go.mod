@@ -5,7 +5,6 @@ go 1.26.4
 require (
 	github.com/gin-gonic/gin v1.12.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/jackc/pgx/v5 v5.10.0
 	github.com/nodirafayzalieva52-lang/userservice v0.0.0-20260713064400-5291c6003626
