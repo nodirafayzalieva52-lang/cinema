@@ -3,13 +3,13 @@ package services
 import (
 	"fmt"
 
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
+	bookingpb "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
+	moviepb "github.com/nodirafayzalieva52-lang/cinema/movie-service/movie"
+	userpb "github.com/nodirafayzalieva52-lang/cinema/user-service/userpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/resolver"
-	userpb "github.com/nodirafayzalieva52-lang/cinema/user-service/userpb"
-	moviepb "github.com/nodirafayzalieva52-lang/cinema/movie-service/movie"
-	bookingpb "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
-	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
 )
 
 type IServiceManager interface {
