@@ -9,6 +9,18 @@ import (
 	userpb "github.com/nodirafayzalieva52-lang/cinema/user-service/userpb"
 )
 
+// GetUser
+//
+// @Summary Get User
+// @Description Get user by id
+// @Tags User
+// @security BearerAuth
+// @Produce json
+// @Param user_id path string true "User ID"
+// @Success 200 {object} UserResponse
+// @Failure 400 {object} RespErr
+// @Failure 500 {object} RespErr
+// @Router /api/user/get/{user_id} [get] 
 func (h *handler) GetUser(c *gin.Context) {
 	idStr := c.Param("user_id")
 	if idStr == "" {

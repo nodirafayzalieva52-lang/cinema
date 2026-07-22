@@ -8,6 +8,14 @@ import (
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/services"
 )
 
+// @title Cinema Api
+// @version v1.0.0
+// @description Api for cinema project
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @host localhost:8080
+// @BasePath /
 func main() {
 	conf, err := config.New("./config/config.env")
 	if err != nil {
@@ -23,7 +31,7 @@ func main() {
 		ServiceManager: serviceManager,
 	})
 
-	if err := server.Run(conf.HTTPPORT); err != nil {
-		log.Fatal("server.Run(): %v", err)
+	if err := server.Run(":8080"); err != nil {
+		log.Fatalf("server.Run(): %v", err)
 	}
 }
