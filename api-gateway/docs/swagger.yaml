@@ -1,4 +1,58 @@
+definitions:
+  handlers.RespErr:
+    properties:
+      error:
+        type: string
+    type: object
+  handlers.UserResponse:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+  description: Api for cinema project
+  title: Cinema Api
+  version: v1.0.0
+paths:
+  /api/user/get/{user_id}:
+    get:
+      description: Get user by id
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Get User
+      tags:
+      - User
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

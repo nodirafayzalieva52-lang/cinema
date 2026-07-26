@@ -2,6 +2,11 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "github.com/nodirafayzalieva52-lang/cinema/api-gateway/docs"
+
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/api/handlers"
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/services"
@@ -27,5 +32,6 @@ func New(option Option) *gin.Engine {
 
 	api.POST("/movie/create", handler.CreateMovie)
 
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return router
 }
