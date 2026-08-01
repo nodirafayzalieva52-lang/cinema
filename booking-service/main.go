@@ -1,13 +1,6 @@
 package main
 
 import (
-	bookingv1 "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/config"
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/repository"
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/server"
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/service"
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/db"
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/logger"
 	"context"
 	"log"
 	"net"
@@ -16,12 +9,29 @@ import (
 	"syscall"
 	"time"
 
+	bookingv1 "github.com/nodirafayzalieva52-lang/cinema/booking-service/bookingpb"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/handler"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/config"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/repository"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/server"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/internal/service"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/db"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/logger"
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/rabbitmq"
+
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 func main() {
+	rabbitManager := rabbitmq.NewManager("amqp://guest:guest@localhost:5672/")
+
+	ctx := context.Background()
+	h := handler.New(rabbitManager)
+
+	h.Start(ctx)
+
 	cfg, err := config.New("./config/config.env")
 	if err != nil { 
 		log.Fatal("config.New", err)

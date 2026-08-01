@@ -6,15 +6,17 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "github.com/nodirafayzalieva52-lang/cinema/api-gateway/docs"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/pkg/rabbitmq"
 
-	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/api/handlers"
+	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/config"
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/services"
 )
 
 type Option struct {
 	Conf           config.Config
 	ServiceManager services.IServiceManager
+	RabbitClient   *rabbitmq.Rabbit
 }
 
 func New(option Option) *gin.Engine {
@@ -24,6 +26,7 @@ func New(option Option) *gin.Engine {
 
 	handler := handlers.NewHandler(
 		option.ServiceManager,
+		option.RabbitClient,
 	)
 
 	api := router.Group("/api")
