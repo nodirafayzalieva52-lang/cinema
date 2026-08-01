@@ -7,15 +7,14 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app ./api-gateway/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app ./booking-service/main.go
 
 FROM alpine:3.20
 
 WORKDIR /app
 
 COPY --from=builder /app/app .
-COPY --from=builder /app/api-gateway/config/config.env ./config/config.env
 
-EXPOSE 8080
+EXPOSE 50053
 
 ENTRYPOINT ["./app"]

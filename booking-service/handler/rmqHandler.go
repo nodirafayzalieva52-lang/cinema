@@ -1,21 +1,20 @@
 package handler
 
 import (
-	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/rabbitmq"
 	"context"
+
+	"github.com/nodirafayzalieva52-lang/cinema/booking-service/pkg/rabbitmq"
 )
 
 type Handler struct {
 	rabbitmqManager *rabbitmq.Manager
-
 }
 
-func New(rabbitmqManager *rabbitmq.Manager) Handler {
+func New(rabbitManager *rabbitmq.Manager) Handler {
 	return Handler{
-		rabbitmqManager: rabbitmqManager,
+		rabbitmqManager: rabbitManager,
 	}
 }
-
 
 func (h *Handler) Start(ctx context.Context) {
 	h.rabbitmqManager.Register("create.booking", h.CreateBooking)
@@ -23,7 +22,6 @@ func (h *Handler) Start(ctx context.Context) {
 	go h.rabbitmqManager.Start(context.Background())
 }
 
-
-func (h *Handler) CreateBooking(ctx context.Context,body []byte) error {
+func (h *Handler) CreateBooking(ctx context.Context, body []byte) error {
 	return nil
 }

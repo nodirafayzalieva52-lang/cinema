@@ -1,0 +1,120 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cinema
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    environment:
+      NETWORK: tcp
+      ADDRESS: ":50051"
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: cinema
+    ports:
+      - "50051:50051"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  movie-service:
+    build:
+      context: .
+      dockerfile: movie-service/Dockerfile
+    environment:
+      NETWORK: tcp
+      ADDRESS: ":50052"
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_Movie: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: cinema
+    ports:
+      - "50052:50052"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  booking-service:
+    build:
+      context: .
+      dockerfile: booking-service/Dockerfile
+    environment:
+      NETWORK: tcp
+      ADDRESS: ":50053"
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_BOOKING: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: cinema
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+    ports:
+      - "50054:50054"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    env_file:
+      - ./api-gateway/config/config.env
+    environment:
+      DB_HOST: postgres
+      USER_SERVICE_HOST: user-service
+      USER_SERVICE_PORT: 50051
+      MOVIE_SERVICE_HOST: movie-service
+      MOVIE_SERVICE_PORT: 50052
+      BOOKING_SERVICE_HOST: booking-service
+      BOOKING_SERVICE_PORT: 50053
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+      REDIS_ADDR: redis:6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+      - user-service
+      - movie-service
+      - booking-service
+
+volumes:
+  postgres_data:

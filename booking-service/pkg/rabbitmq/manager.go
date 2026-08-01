@@ -80,7 +80,7 @@ func (m *Manager) run(ctx context.Context) error {
 
 	closeErr := <-conn.NotifyClose(make(chan *amqp.Error))
 
-	cancel()
+	cancel()  
 	wg.Wait() 
 
 	if closeErr != nil {
