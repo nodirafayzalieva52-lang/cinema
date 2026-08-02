@@ -7,6 +7,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateBooking
+//
+// @Summary Create booking
+// @Description Create a new booking (publishes to queue, async processing)
+// @Tags Booking
+// @security BearerAuth
+// @Accept json
+// @Produce json
+// @Param request body models.CreateBookingRequest true "Booking data"
+// @Success 202 {object} handlers.RespOk
+// @Failure 400 {object} RespErr
+// @Failure 500 {object} RespErr
+// @Router /api/booking/create [post]
 func (h *handler) CreateBooking(c *gin.Context) {
 	var body models.CreateBookingRequest
 

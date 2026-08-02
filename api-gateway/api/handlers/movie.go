@@ -9,6 +9,19 @@ import (
 	"github.com/nodirafayzalieva52-lang/cinema/api-gateway/models"
 )
 
+// CreateMovie
+//
+// @Summary Create movie
+// @Description Create a new movie
+// @Tags Movie
+// @security BearerAuth
+// @Accept json
+// @Produce json
+// @Param request body models.CreateMovieRequest true "Movie data"
+// @Success 201 {object} moviepb.CreateMovieResponse
+// @Failure 400 {object} RespErr
+// @Failure 500 {object} RespErr
+// @Router /api/movie/create [post]
 func (h *handler) CreateMovie(c *gin.Context) {
 	var body models.CreateMovieRequest
 

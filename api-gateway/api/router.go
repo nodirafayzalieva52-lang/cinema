@@ -31,7 +31,7 @@ func New(option Option) *gin.Engine {
 
 	api := router.Group("/api")
 
-	api.POST("/user/get", handler.GetUser)
+	api.GET("/user/get/:user_id", handler.GetUser)
 
 	api.POST("/movie/create", handler.CreateMovie)
 
