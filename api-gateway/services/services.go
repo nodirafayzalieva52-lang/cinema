@@ -37,34 +37,32 @@ func (s *serviceManager) BookingService() bookingpb.BookingServiceClient {
 }
 
 func NewServiceManager(config config.Services) (IServiceManager, error) {
-	resolver.SetDefaultScheme("dns") 
+	resolver.SetDefaultScheme("dns")
 
 	connUserService, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", &config.UserService.Host, config.UserService.Port),
+		fmt.Sprintf("%s:%d", config.UserService.Host, config.UserService.Port),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to user service: %w", err)
 	}
 
 	connMovieService, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", &config.MovieService.Host, config.MovieService.Port),
+		fmt.Sprintf("%s:%d", config.MovieService.Host, config.MovieService.Port),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
-
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to movie service: %w", err)
 	}
 
 	connBookingService, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", &config.BookingService.Host, config.BookingService.Port),
+		fmt.Sprintf("%s:%d", config.BookingService.Host, config.BookingService.Port),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
-
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect to movie service: %w", err)
+		return nil, fmt.Errorf("failed to connect to booking service: %w", err)
 	}
 
 	return &serviceManager{
-		userService: userpb.NewUserServiceClient(connUserService),
-		movieService: moviepb.NewMovieServiceClient(connMovieService),
+		userService:    userpb.NewUserServiceClient(connUserService),
+		movieService:   moviepb.NewMovieServiceClient(connMovieService),
 		bookingService: bookingpb.NewBookingServiceClient(connBookingService),
 	}, nil
 }

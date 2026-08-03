@@ -1,8 +1,73 @@
 definitions:
+  handlers.BookingResponse:
+    properties:
+      id:
+        type: integer
+      movie_id:
+        type: integer
+      status:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  handlers.CreateBookingRequest:
+    properties:
+      movie_id:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  handlers.CreateMovieRequest:
+    properties:
+      title:
+        type: string
+    type: object
+  handlers.CreateUserRequest:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  handlers.MovieResponse:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
   handlers.RespErr:
     properties:
       error:
         type: string
+    type: object
+  handlers.UpdateMovieRequest:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  handlers.UpdateUserRequest:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
     type: object
   handlers.UserResponse:
     properties:
@@ -21,6 +86,308 @@ info:
   title: Cinema Api
   version: v1.0.0
 paths:
+  /api/booking/cancel/{id}:
+    delete:
+      description: Cancel/Delete booking by ID
+      parameters:
+      - description: Booking ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Cancel Booking
+      tags:
+      - Booking
+  /api/booking/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new booking
+      parameters:
+      - description: Booking Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateBookingRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.BookingResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Create Booking
+      tags:
+      - Booking
+  /api/booking/get/{id}:
+    get:
+      description: Get booking by ID
+      parameters:
+      - description: Booking ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.BookingResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Get Booking
+      tags:
+      - Booking
+  /api/booking/user/{user_id}:
+    get:
+      description: Get all bookings for a specific user
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/handlers.BookingResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Get User Bookings
+      tags:
+      - Booking
+  /api/movie/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new movie entry
+      parameters:
+      - description: Movie Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateMovieRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.MovieResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Create Movie
+      tags:
+      - Movie
+  /api/movie/delete/{id}:
+    delete:
+      description: Delete movie by ID
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Delete Movie
+      tags:
+      - Movie
+  /api/movie/get/{id}:
+    get:
+      description: Get movie by ID
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.MovieResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Get Movie
+      tags:
+      - Movie
+  /api/movie/update:
+    put:
+      consumes:
+      - application/json
+      description: Update movie details
+      parameters:
+      - description: Movie Update Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UpdateMovieRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.MovieResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Update Movie
+      tags:
+      - Movie
+  /api/user/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: User Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      summary: Create User
+      tags:
+      - User
+  /api/user/delete/{user_id}:
+    delete:
+      description: Delete user by id
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Delete User
+      tags:
+      - User
   /api/user/get/{user_id}:
     get:
       description: Get user by id
@@ -29,7 +396,7 @@ paths:
         in: path
         name: user_id
         required: true
-        type: string
+        type: integer
       produces:
       - application/json
       responses:
@@ -48,6 +415,38 @@ paths:
       security:
       - BearerAuth: []
       summary: Get User
+      tags:
+      - User
+  /api/user/update:
+    put:
+      consumes:
+      - application/json
+      description: Update existing user info
+      parameters:
+      - description: User Update Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.RespErr'
+      security:
+      - BearerAuth: []
+      summary: Update User
       tags:
       - User
 securityDefinitions:
